@@ -40,21 +40,12 @@ export class BannerComponent implements OnInit {
   }
 
   public logicaRotacao(): void {
-
-    let idx !: number;
-
     //ocultar imagem
-    for (let i: number = 0; i < this.imagens.length; i++) {
-      if (this.imagens[i].estado === 'visivel') {
-        this.imagens[i].estado = 'escondido'
-        idx = i === this.imagens.length - 1 ? 0 : i + 1
-        break
-      }
-    }
+    let i: number = this.imagens.findIndex(i => i.estado === 'visivel')
+    this.imagens[i].estado = 'escondido';
 
     //exibir outra imagem
-    this.imagens[idx].estado = 'visivel'
+    this.imagens[(i === this.imagens.length - 1) ? 0 : i + 1].estado = 'visivel'
     setTimeout(() => this.logicaRotacao(), 2000)
-
   }
 }
