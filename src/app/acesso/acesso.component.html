@@ -4,9 +4,17 @@
       <app-banner></app-banner>
     </div>
 
-    <div class="col-sm-6 d-flex justify-content-start" [@animacao-painel]="estadoPainel">
-   <!--    <app-login></app-login> -->
-   <app-cadastro></app-cadastro>
-    </div>
+    
+      <div *ngIf="cadastro; else formLogin" class="col-sm-6 d-flex justify-content-start" [@animacao-painel]="estadoPainel">
+        <app-cadastro (exibirPainel)="exibir($event)"></app-cadastro>
+      </div>
+    
+
+    <ng-template #formLogin>
+      <div class="col-sm-6 d-flex justify-content-start" [@animacao-painel]="estadoPainel">
+        <app-login (exibirPainel)="exibir($event)"></app-login>
+      </div>
+    </ng-template>
+
   </div>
 </div>

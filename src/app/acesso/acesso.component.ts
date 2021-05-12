@@ -46,16 +46,14 @@ export class AcessoComponent implements OnInit {
 
   public estadoBanner: string = 'criado';
   public estadoPainel: string = 'criado';
+  public cadastro: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
   }
 
-<<<<<<< HEAD
   public exibir(event: string): void {
     this.cadastro = event === 'cadastro' ? true : false
   }
 
-=======
->>>>>>> parent of f7b67ab (Troca de componente com OutPut (EventEmmitter) login e cadastro)
 }
