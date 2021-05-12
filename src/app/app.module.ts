@@ -20,7 +20,7 @@ import { CadastroComponent } from './acesso/cadastro/cadastro.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
+    AppRoutingModule
 
   ],
   providers: [],
