@@ -10,9 +10,9 @@ export class AutenticacaoService {
 
   constructor() { }
 
-  public cadastrarUsuario(usuario: Usuario) {
-    console.log('Chegamos até o serviço!!!', usuario)
-    firebase.auth().createUserWithEmailAndPassword(usuario.email, usuario.senha)
+  public cadastrarUsuario(usuario: Usuario) : Promise<any>{
+    
+   return  firebase.auth().createUserWithEmailAndPassword(usuario.email, usuario.senha)
       .then(
         (resposta: any) => {
           //remover a senha do aributo senha do objeto usuário
