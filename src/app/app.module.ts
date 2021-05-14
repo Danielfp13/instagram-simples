@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AutenticacaoService } from './autenticacao.service';
 import { HomeComponent } from './home/home.component';
 import { PublicacoesComponent } from './home/publicacoes/publicacoes.component';
+import { AutenticacaoGuardService } from './autenticacao-guard.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { PublicacoesComponent } from './home/publicacoes/publicacoes.component';
     ReactiveFormsModule
 
   ],
-  providers: [AutenticacaoService],
+  providers: [AutenticacaoService, AutenticacaoGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
