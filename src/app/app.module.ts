@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { PublicacoesComponent } from './home/publicacoes/publicacoes.component';
 import { AutenticacaoGuardService } from './autenticacao-guard.service';
 import { IncluirPublicacaoComponent } from './home/incluir-publicacao/incluir-publicacao.component';
+import { BdService } from './bd.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { IncluirPublicacaoComponent } from './home/incluir-publicacao/incluir-pu
     ReactiveFormsModule
 
   ],
-  providers: [AutenticacaoService, AutenticacaoGuardService],
+  providers: [AutenticacaoService, AutenticacaoGuardService, BdService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

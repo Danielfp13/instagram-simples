@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { BdService } from '../../bd.service';
+import firebase from 'firebase/app';
+import 'firebase/auth'
 
 @Component({
   selector: 'app-incluir-publicacao',
@@ -8,16 +11,23 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class IncluirPublicacaoComponent implements OnInit {
 
+  public email: string = ''
+
   public formulario: FormGroup = new FormGroup({
     'titulo' : new FormControl(null)
   })
-  constructor() { }
+  constructor(private bdService: BdService) { }
 
   ngOnInit(): void {
+    firebase.auth().onAuthStateChanged((user) => {
+      this.email = user.email
+    })
   }
 
   public publicar():void{
-    console.log('chegamos até aqui')
-    console.log(this.formulario.value.titulo)
+    this.bdService.publicar( {
+      email: this.email ,
+      titulo: this.formulario.value.titulo
+      });
   }
 }
