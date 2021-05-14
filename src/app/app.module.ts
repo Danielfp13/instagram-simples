@@ -15,6 +15,7 @@ import { PublicacoesComponent } from './home/publicacoes/publicacoes.component';
 import { AutenticacaoGuardService } from './autenticacao-guard.service';
 import { IncluirPublicacaoComponent } from './home/incluir-publicacao/incluir-publicacao.component';
 import { BdService } from './bd.service';
+import { ProgressoService } from './progresso.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { BdService } from './bd.service';
     ReactiveFormsModule
 
   ],
-  providers: [AutenticacaoService, AutenticacaoGuardService, BdService],
+  providers: [AutenticacaoService, AutenticacaoGuardService, BdService, ProgressoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
