@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { BdService } from '../../bd.service';
 import firebase from 'firebase/app';
@@ -15,6 +15,9 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./incluir-publicacao.component.css']
 })
 export class IncluirPublicacaoComponent implements OnInit {
+
+  @Output()
+  public atualizarTimeLine: EventEmitter<any> = new EventEmitter()
 
   public email: string = ''
   private imagem: any
@@ -53,8 +56,10 @@ export class IncluirPublicacaoComponent implements OnInit {
      Math.round( (this.progressoService.estado.bytesTransferred / this.progressoService.estado.totalBytes) * 100)
 
       if (this.progressoService.status === 'concluido') {
-        continua.next(false);
         this.progressoPublicacao = 'concluido'
+        //emitir evento do componete parent (home)
+        this.atualizarTimeLine.emit()
+        continua.next(false);
       }
     })
   }
