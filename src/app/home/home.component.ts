@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AutenticacaoService } from '../autenticacao.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,7 +14,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public sair(): void{
+  public sair(): void {
     this.autenticacaoService.sair();
   }
+
 }

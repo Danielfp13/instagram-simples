@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BdService } from '../../bd.service';
+import firebase from 'firebase/app';
 
 @Component({
   selector: 'app-publicacoes',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PublicacoesComponent implements OnInit {
 
-  constructor() { }
+  public email: string
+
+  constructor( private BdService: BdService) { }
 
   ngOnInit(): void {
-  }
 
+    firebase.auth().onAuthStateChanged((user) => {
+      this.email = user.email
+
+      this.atualiazarTimeLine()
+    })
+
+  }
+  public atualiazarTimeLine(): void{
+    this.BdService.consultaPublicacoes(this.email)
+  }
 }
