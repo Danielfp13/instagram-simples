@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
 import 'firebase/database'
 import 'firebase/storage'
+import { promise } from 'protractor';
 import { ProgressoService } from './progresso.service';
 
 
@@ -38,38 +39,40 @@ export class BdService {
       })
   }
 
-  public consultaPublicacoes(emailUsuario: string): any {
-    //consultar as publicações em (database) 
-    firebase.database().ref(`publicacoes/${btoa(emailUsuario)}`)
-      .once('value')
-      .then((snapshot: any) => {
+  public consultaPublicacoes(emailUsuario: string): Promise<any> {
+    return new Promise((resolve, reject) => {
 
-        let publicacoes: any[] = []
+      //consultar as publicações em (database) 
+      firebase.database().ref(`publicacoes/${btoa(emailUsuario)}`)
+        .once('value')
+        .then((snapshot: any) => {
 
-        snapshot.forEach((childSnapshot: any) => {
+          let publicacoes: any[] = []
 
-          let publicacao = childSnapshot.val()
+          snapshot.forEach((childSnapshot: any) => {
 
-          //consultar url da imagem em (storage)
-          firebase.storage().ref()
-            .child(`imagens/${childSnapshot.key}`)
-            .getDownloadURL()
-            .then((url: string) => {
-              publicacao.url_imagem = url
+            let publicacao = childSnapshot.val()
 
-              //consultar nome do usuario 
-              firebase.database().ref(`usuario_detalhe/${btoa(emailUsuario)}`)
-              .once('value')
-              .then((snapshot: any) =>{
-                publicacao.nome_usuario = snapshot.val().nome_usuario
-            
-                publicacoes.push(publicacao)
+            //consultar url da imagem em (storage)
+            firebase.storage().ref()
+              .child(`imagens/${childSnapshot.key}`)
+              .getDownloadURL()
+              .then((url: string) => {
+                publicacao.url_imagem = url
+
+                //consultar nome do usuario 
+                firebase.database().ref(`usuario_detalhe/${btoa(emailUsuario)}`)
+                  .once('value')
+                  .then((snapshot: any) => {
+                    publicacao.nome_usuario = snapshot.val().nome_usuario
+
+                    publicacoes.push(publicacao)
+                  })
+
               })
-           
-            })
+          })
+          resolve(publicacoes)
         })
-        console.log(publicacoes)
-      })
-
+    })
   }
 }

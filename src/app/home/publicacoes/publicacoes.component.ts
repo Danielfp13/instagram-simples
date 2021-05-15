@@ -10,6 +10,7 @@ import firebase from 'firebase/app';
 export class PublicacoesComponent implements OnInit {
 
   public email: string
+  public publicacoes: any
 
   constructor( private BdService: BdService) { }
 
@@ -24,5 +25,8 @@ export class PublicacoesComponent implements OnInit {
   }
   public atualiazarTimeLine(): void{
     this.BdService.consultaPublicacoes(this.email)
+    .then((publicacoes: any) => {
+      this.publicacoes = publicacoes
+    })
   }
 }
