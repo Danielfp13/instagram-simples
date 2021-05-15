@@ -19,11 +19,11 @@ export class PublicacoesComponent implements OnInit {
     firebase.auth().onAuthStateChanged((user) => {
       this.email = user.email
 
-      this.atualiazarTimeLine()
+      this.atualizarTimeLine()
     })
 
   }
-  public atualiazarTimeLine(): void{
+  public atualizarTimeLine(): void{
     this.BdService.consultaPublicacoes(this.email)
     .then((publicacoes: any) => {
       this.publicacoes = publicacoes
