@@ -18,6 +18,8 @@ export class IncluirPublicacaoComponent implements OnInit {
 
   public email: string = ''
   private imagem: any
+  public progressoPublicacao: string = 'pendente'
+  public porcentagemUpload: number = 0
 
   public formulario: FormGroup = new FormGroup({
     'titulo': new FormControl(null),
@@ -42,19 +44,27 @@ export class IncluirPublicacaoComponent implements OnInit {
     let continua = new Subject();
     continua.next(true);
 
-    let acompanhamentoUpload = interval(200);
+    let acompanhamentoUpload = interval(1000);
 
-    acompanhamentoUpload.pipe( takeUntil(continua)).subscribe(() => {
-      console.log(this.progressoService.estado);
-      console.log(this.progressoService.status);
+    acompanhamentoUpload.pipe(takeUntil(continua)).subscribe(() => {
+      this.progressoPublicacao = 'andamento'
+
+      this.porcentagemUpload = 
+     Math.round( (this.progressoService.estado.bytesTransferred / this.progressoService.estado.totalBytes) * 100)
 
       if (this.progressoService.status === 'concluido') {
         continua.next(false);
+        this.progressoPublicacao = 'concluido'
       }
     })
   }
 
   public preparaImagemUpload(event: Event): void {
     this.imagem = (<HTMLInputElement>event.target).files
+  }
+
+  public fechar(): void{
+    this.progressoService.status ='pendente'
+    this.progressoPublicacao = 'pendente'
   }
 }
